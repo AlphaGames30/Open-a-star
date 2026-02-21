@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unbox a Star - Prototype</title>
+<style>
+body { font-family: sans-serif; text-align: center; background: #f0f8ff; margin: 0; padding: 0; }
+h1 { color: #ff4500; margin-top: 20px; }
+#menu { display: flex; justify-content: space-between; align-items: center; position: fixed; top:0; width: 100%; background: #ddd; padding: 10px; box-sizing: border-box; }
+.menu-left { display: flex; align-items: center; }
+.menu-left img { width: 40px; height:40px; border-radius:50%; margin-right:10px; }
+.menu-button { flex: 1; margin: 0 5px; padding: 10px 0; background: #fff; border-radius: 10px; cursor: pointer; border: 2px solid #000; }
+.menu-button:hover { background: #ffe4b5; }
+#home-section, #index-section, #profile-section, #options-section, #friends-section { display:none; margin-top:60px; }
+#pack-container { width:220px; height:260px; margin:40px auto; background:#fff; display:flex; justify-content:center; align-items:center; border:2px solid #000; border-radius:10px; }
+#pack-img { max-width:200px; max-height:200px; cursor:pointer; }
+#openBooster { display:none; margin-top:10px; }
+.card-single { width:200px; height:300px; margin:20px auto; background:#fff; border:2px solid #000; border-radius:10px; display:flex; justify-content:center; align-items:center; cursor:pointer; font-size:24px; }
+.card-single.reveal { animation: pulse 0.5s; }
+@keyframes pulse { 0% {transform: scale(1);} 50% {transform: scale(1.2);} 100% {transform: scale(1);} }
+#index { margin-top: 20px; max-height: 70vh; overflow-y: auto; display: flex; flex-wrap: wrap; justify-content: center; }
+.index-card { display: inline-block; width: 60px; height: 90px; margin: 3px; background: #ddd; border-radius: 6px; overflow: hidden; position: relative; }
+.found { background: #90ee90; }
+.duplicates { position: absolute; bottom: 0; right: 0; background: rgba(255,255,255,0.7); padding: 2px 4px; border-radius: 4px; font-size: 12px; }
+img { width: 100%; height: 100%; object-fit: contain; }
+</style>
+</head>
+<body>
+
+<div id="menu">
+  <div class="menu-left">
+    <img id="menu-pdp" src="#" alt="PDP" style="display:none;">
+    <span id="menu-name"></span>
+  </div>
+  <div class="menu-button" data-section="home-section">Accueil</div>
+  <div class="menu-button" data-section="index-section">Index</div>
+  <div class="menu-button" data-section="options-section">Options</div>
+  <div class="menu-button" data-section="friends-section">Amis</div>
+  <div class="menu-button" data-section="profile-section">Profil</div>
+</div>
+
+<h1>Unbox a Star</h1>
+
+<div id="home-section">
+  <div id="pack-container">
+    <img id="pack-img" src="https://via.placeholder.com/200x200/FFFFFF/000000?text=Pack" alt="Pack">
+  </div>
+  <button id="openBooster">Ouvrir le booster</button>
+  <div id="card-display"></div>
+</div>
+
+<div id="index-section">
+<h2>Index</h2>
+<div id="index"></div>
+</div>
+
+<div id="profile-section">
+<h2>Profil</h2>
+<label>Nom: <input type="text" id="profile-name" placeholder="Votre nom"></label><br><br>
+<label>PPD: <input type="file" id="profile-pdp-file"></label><br><br>
+Code ami: <span id="friend-code-display"></span>
+<img id="profile-pdp-preview" src="#" alt="Preview" style="width:80px;height:80px;border:1px solid #000;display:none;margin-top:10px;">
+</div>
+
+<div id="options-section">
+<h2>Options</h2>
+<div id="stats"></div>
+<button id="resetData">Réinitialiser les données</button>
+</div>
+
+<div id="friends-section">
+<h2>Amis</h2>
+<input placeholder="Entrer code ami">
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded',()=>{
+
+const characters = [
+  // Communes (18)
+  {name:'Alice', img:'images/Alice.png', rarity:1},
+  {name:'Robin', img:'images/Robin.png', rarity:1},
+  {name:'Peter Pan', img:'images/PeterPan.png', rarity:1},
+  {name:'Chaperon', img:'images/Chaperon.png', rarity:1},
+  {name:'Pinocchio', img:'images/Pinocchio.png', rarity:1},
+  {name:'Noob Roblox', img:'images/Noob.png', rarity:1},
+  {name:'Robot', img:'images/Robot.png', rarity:1},
+  {name:'Alien', img:'images/Alien.png', rarity:1},
+  {name:'Pirate', img:'images/Pirate.png', rarity:1},
+  {name:'Chevalier', img:'images/Chevalier.png', rarity:1},
+  {name:'Dragon', img:'images/Dragon.png', rarity:1},
+  {name:'Sorciere', img:'images/Sorciere.png', rarity:1},
+  {name:'Petit Chaperon', img:'images/PetitChaperon.png', rarity:1},
+  {name:'Capitaine Nemo', img:'images/CapitaineNemo.png', rarity:1},
+  {name:'Frankenstein', img:'images/Frankenstein.png', rarity:1},
+  {name:'Dracula', img:'images/Dracula.png', rarity:1},
+  {name:'Loup', img:'images/Loup.png', rarity:1},
+  {name:'Chaperon Rouge', img:'images/ChaperonRouge.png', rarity:1},
+
+  // Rares (6)
+  {name:'Chevalier Lumiere', img:'images/ChevalierLumiere.png', rarity:2},
+  {name:'Sorciere Nuit', img:'images/SorciereNuit.png', rarity:2},
+  {name:'Robot Pixel', img:'images/RobotPixel.png', rarity:2},
+  {name:'Alien Vert', img:'images/AlienVert.png', rarity:2},
+  {name:'Pirate Fantome', img:'images/PirateFantome.png', rarity:2},
+  {name:'Dragon Glace', img:'images/DragonGlace.png', rarity:2},
+
+  // Méga rares (3)
+  {name:'Chevalier Noir', img:'images/ChevalierNoir.png', rarity:3},
+  {name:'Sorciere Feu', img:'images/SorciereFeu.png', rarity:3},
+  {name:'Robot Laser', img:'images/RobotLaser.png', rarity:3},
+
+  // Ultra rares (2)
+  {name:'Alien Bleu', img:'images/AlienBleu.png', rarity:4},
+  {name:'Pirate Squelette', img:'images/PirateSquelette.png', rarity:4},
+
+  // Secret (1)
+  {name:'Dragon Eclair', img:'images/DragonEclair.png', rarity:5}
+];
+
+let collection=JSON.parse(localStorage.getItem('collection'))||{};
+let friendCode=localStorage.getItem('friendCode');
+if(!friendCode){friendCode=Math.random().toString(36).substring(2,8).toUpperCase();localStorage.setItem('friendCode',friendCode);} 
+document.getElementById('friend-code-display').innerText=friendCode;
+
+function updateProfileMenu(){
+  const name=document.getElementById('profile-name').value;
+  const pdp=document.getElementById('profile-pdp-preview').src;
+  if(name) document.getElementById('menu-name').innerText=name;
+  if(document.getElementById('profile-pdp-preview').style.display!=='none') {
+    document.getElementById('menu-pdp').src=pdp;
+    document.getElementById('menu-pdp').style.display='inline-block';
+  }
+}
+
+function save(){localStorage.setItem('collection',JSON.stringify(collection));}
+function updateStats(){
+  let total=0,dup=0,idx=0;
+  characters.forEach(c=>{if(collection[c.name]){idx++;total+=collection[c.name];if(collection[c.name]>1)dup+=collection[c.name]-1;}});
+  document.getElementById('stats').innerText=`Total: ${total} | Doublons: ${dup} | Index: ${idx}/${characters.length}`;
+}
+
+function updateIndex(){
+  const div=document.getElementById('index');
+  div.innerHTML='';
+  const sorted=[...characters].sort((a,b)=>a.rarity-b.rarity);
+  sorted.forEach(c=>{
+    let d=document.createElement('div');
+    d.className='index-card';
+    d.title=c.name;
+    if(collection[c.name]){
+      d.classList.add('found');
+      d.innerHTML=`<img src='${c.img}'>`;
+      if(collection[c.name]>1) d.innerHTML+=`<div class='duplicates'>x${collection[c.name]}</div>`;
+    }
+    div.appendChild(d);
+  });
+}
+
+function drawBooster(){
+  const boosterCards=[];
+  for(let i=0;i<10;i++){
+    const r=Math.random();
+    let card;
+    if(r<0.6) card=characters.filter(c=>c.rarity===1)[Math.floor(Math.random()*18)];
+    else if(r<0.6+0.24) card=characters.filter(c=>c.rarity===2)[Math.floor(Math.random()*6)];
+    else if(r<0.6+0.24+0.12) card=characters.filter(c=>c.rarity===3)[Math.floor(Math.random()*3)];
+    else if(r<0.6+0.24+0.12+0.08) card=characters.filter(c=>c.rarity===4)[Math.floor(Math.random()*2)];
+    else card=characters.find(c=>c.rarity===5);
+    boosterCards.push(card);
+  }
+  let current=0;
+  const cardDisplay=document.getElementById('card-display');
+  cardDisplay.innerHTML='';
+  function showNext(){
+    if(current>=boosterCards.length) return;
+    const card=boosterCards[current];
+    const div=document.createElement('div');
+    div.className='card-single';
+    if(!collection[card.name]) div.classList.add('reveal');
+    div.innerHTML=`<img src='${card.img}' alt='${card.name}'>`;
+    div.addEventListener('click',()=>{
+      collection[card.name]=(collection[card.name]||0)+1;
+      save();
+      updateIndex();
+      updateStats();
+      current++; cardDisplay.innerHTML=''; showNext();
+    });
+    cardDisplay.appendChild(div);
+  }
+  showNext();
+}
+
+document.getElementById('pack-img').addEventListener('click',()=>{document.getElementById('openBooster').style.display='inline-block';});
+document.getElementById('openBooster').addEventListener('click',drawBooster);
+
+const sections=['home-section','index-section','profile-section','options-section','friends-section'];
+document.querySelectorAll('.menu-button').forEach(btn=>btn.addEventListener('click',()=>{
+  sections.forEach(s=>document.getElementById(s).style.display='none');
+  document.getElementById(btn.dataset.section).style.display='block';
+}));
+
+document.getElementById('resetData').addEventListener('click',()=>{
+  if(confirm('Réinitialiser toutes les cartes ?')){
+    collection={}; localStorage.removeItem('collection'); updateIndex(); updateStats(); alert('Collection réinitialisée');
+  }
+});
+
+document.getElementById('profile-pdp-file').addEventListener('change',function(e){
+  const reader=new FileReader();
+  reader.onload=function(){
+    document.getElementById('profile-pdp-preview').src=reader.result;
+    document.getElementById('profile-pdp-preview').style.display='block';
+    updateProfileMenu();
+  };
+  reader.readAsDataURL(e.target.files[0]);
+});
+document.getElementById('profile-name').addEventListener('input',updateProfileMenu);
+
+updateIndex(); updateStats();
+document.getElementById('home-section').style.display='block';
+
+});
+</script>
+</body>
+</html>
