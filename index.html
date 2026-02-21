@@ -76,49 +76,107 @@ Code ami: <span id="friend-code-display"></span>
 
 <script>
 document.addEventListener('DOMContentLoaded',()=>{
-
 const characters = [
-  // Communes (18)
-  {name:'Mario', img:'images/MarioBasic.png', rarity:1},
-  {name:'Luigi', img:'images/LuigiBasic.png', rarity:1},
-  {name:'Yoshi', img:'images/YoshiBasic.png', rarity:1},
-  {name:'Peach', img:'images/PeachBasic.png', rarity:1},
-  {name:'Toad', img:'images/ToadBasic.png', rarity:1},
-  {name:'Noob Roblox', img:'images/Noob.png', rarity:1},
-  {name:'Robot', img:'images/Robot.png', rarity:1},
-  {name:'Alien', img:'images/Alien.png', rarity:1},
-  {name:'Pirate', img:'images/Pirate.png', rarity:1},
-  {name:'Chevalier', img:'images/Chevalier.png', rarity:1},
-  {name:'Dragon', img:'images/Dragon.png', rarity:1},
-  {name:'Sorciere', img:'images/Sorciere.png', rarity:1},
-  {name:'Petit Chaperon', img:'images/PetitChaperon.png', rarity:1},
-  {name:'Capitaine Nemo', img:'images/CapitaineNemo.png', rarity:1},
-  {name:'Frankenstein', img:'images/Frankenstein.png', rarity:1},
-  {name:'Dracula', img:'images/Dracula.png', rarity:1},
-  {name:'Loup', img:'images/Loup.png', rarity:1},
-  {name:'Chaperon Rouge', img:'images/ChaperonRouge.png', rarity:1},
+/* ===== 80 COMMUNES ===== */
+{name:"Lutin",rarity:1,img:"https://via.placeholder.com/80x120?text=Lutin"},
+{name:"Chat",rarity:1,img:"https://via.placeholder.com/80x120?text=Chat"},
+{name:"Chien",rarity:1,img:"https://via.placeholder.com/80x120?text=Chien"},
+{name:"Grenouille",rarity:1,img:"https://via.placeholder.com/80x120?text=Grenouille"},
+{name:"Arbre",rarity:1,img:"https://via.placeholder.com/80x120?text=Arbre"},
+{name:"Lampe",rarity:1,img:"https://via.placeholder.com/80x120?text=Lampe"},
+{name:"Lit",rarity:1,img:"https://via.placeholder.com/80x120?text=Lit"},
+{name:"Aspirateur",rarity:1,img:"https://via.placeholder.com/80x120?text=Aspirateur"},
+{name:"Chaise",rarity:1,img:"https://via.placeholder.com/80x120?text=Chaise"},
+{name:"Table",rarity:1,img:"https://via.placeholder.com/80x120?text=Table"},
+{name:"Crayon",rarity:1,img:"https://via.placeholder.com/80x120?text=Crayon"},
+{name:"Stylo",rarity:1,img:"https://via.placeholder.com/80x120?text=Stylo"},
+{name:"Gomme",rarity:1,img:"https://via.placeholder.com/80x120?text=Gomme"},
+{name:"Sac",rarity:1,img:"https://via.placeholder.com/80x120?text=Sac"},
+{name:"Boite",rarity:1,img:"https://via.placeholder.com/80x120?text=Boite"},
+{name:"Coussin",rarity:1,img:"https://via.placeholder.com/80x120?text=Coussin"},
+{name:"Tapis",rarity:1,img:"https://via.placeholder.com/80x120?text=Tapis"},
+{name:"Rideau",rarity:1,img:"https://via.placeholder.com/80x120?text=Rideau"},
+{name:"Fenetre",rarity:1,img:"https://via.placeholder.com/80x120?text=Fenetre"},
+{name:"Porte",rarity:1,img:"https://via.placeholder.com/80x120?text=Porte"},
+{name:"Nuage",rarity:1,img:"https://via.placeholder.com/80x120?text=Nuage"},
+{name:"Pluie",rarity:1,img:"https://via.placeholder.com/80x120?text=Pluie"},
+{name:"Soleil",rarity:1,img:"https://via.placeholder.com/80x120?text=Soleil"},
+{name:"Lune",rarity:1,img:"https://via.placeholder.com/80x120?text=Lune"},
+{name:"Etoile",rarity:1,img:"https://via.placeholder.com/80x120?text=Etoile"},
+{name:"Pierre",rarity:1,img:"https://via.placeholder.com/80x120?text=Pierre"},
+{name:"Sable",rarity:1,img:"https://via.placeholder.com/80x120?text=Sable"},
+{name:"Feuille",rarity:1,img:"https://via.placeholder.com/80x120?text=Feuille"},
+{name:"Branche",rarity:1,img:"https://via.placeholder.com/80x120?text=Branche"},
+{name:"Racine",rarity:1,img:"https://via.placeholder.com/80x120?text=Racine"},
+{name:"Fourmi",rarity:1,img:"https://via.placeholder.com/80x120?text=Fourmi"},
+{name:"Abeille",rarity:1,img:"https://via.placeholder.com/80x120?text=Abeille"},
+{name:"Papillon",rarity:1,img:"https://via.placeholder.com/80x120?text=Papillon"},
+{name:"Mouche",rarity:1,img:"https://via.placeholder.com/80x120?text=Mouche"},
+{name:"Araignee",rarity:1,img:"https://via.placeholder.com/80x120?text=Araignee"},
+{name:"Ver",rarity:1,img:"https://via.placeholder.com/80x120?text=Ver"},
+{name:"Poisson",rarity:1,img:"https://via.placeholder.com/80x120?text=Poisson"},
+{name:"Crabe",rarity:1,img:"https://via.placeholder.com/80x120?text=Crabe"},
+{name:"Tortue",rarity:1,img:"https://via.placeholder.com/80x120?text=Tortue"},
+{name:"Escargot",rarity:1,img:"https://via.placeholder.com/80x120?text=Escargot"},
+{name:"Poulet",rarity:1,img:"https://via.placeholder.com/80x120?text=Poulet"},
+{name:"Vache",rarity:1,img:"https://via.placeholder.com/80x120?text=Vache"},
+{name:"Mouton",rarity:1,img:"https://via.placeholder.com/80x120?text=Mouton"},
+{name:"Cochon",rarity:1,img:"https://via.placeholder.com/80x120?text=Cochon"},
+{name:"Cheval",rarity:1,img:"https://via.placeholder.com/80x120?text=Cheval"},
+{name:"Ane",rarity:1,img:"https://via.placeholder.com/80x120?text=Ane"},
+{name:"Lapin",rarity:1,img:"https://via.placeholder.com/80x120?text=Lapin"},
+{name:"Hamster",rarity:1,img:"https://via.placeholder.com/80x120?text=Hamster"},
+{name:"Souris",rarity:1,img:"https://via.placeholder.com/80x120?text=Souris"},
+{name:"Rat",rarity:1,img:"https://via.placeholder.com/80x120?text=Rat"},
 
-  // Rares (6)
-  {name:'Chevalier Lumiere', img:'images/ChevalierLumiere.png', rarity:2},
-  {name:'Sorciere Nuit', img:'images/SorciereNuit.png', rarity:2},
-  {name:'Robot Pixel', img:'images/RobotPixel.png', rarity:2},
-  {name:'Alien Vert', img:'images/AlienVert.png', rarity:2},
-  {name:'Pirate Fantome', img:'images/PirateFantome.png', rarity:2},
-  {name:'Dragon Glace', img:'images/DragonGlace.png', rarity:2},
+/* ===== 45 RARES ===== */
+{name:"Licorne",rarity:2,img:"https://via.placeholder.com/80x120?text=Licorne"},
+{name:"Fee",rarity:2,img:"https://via.placeholder.com/80x120?text=Fee"},
+{name:"Dragonnet",rarity:2,img:"https://via.placeholder.com/80x120?text=Dragonnet"},
+{name:"Gnome",rarity:2,img:"https://via.placeholder.com/80x120?text=Gnome"},
+{name:"Elfe",rarity:2,img:"https://via.placeholder.com/80x120?text=Elfe"},
+{name:"Sorcier",rarity:2,img:"https://via.placeholder.com/80x120?text=Sorcier"},
+{name:"Mage",rarity:2,img:"https://via.placeholder.com/80x120?text=Mage"},
+{name:"Ninja",rarity:2,img:"https://via.placeholder.com/80x120?text=Ninja"},
+{name:"Samourai",rarity:2,img:"https://via.placeholder.com/80x120?text=Samourai"},
+{name:"Chevalier",rarity:2,img:"https://via.placeholder.com/80x120?text=Chevalier"},
+{name:"Princesse",rarity:2,img:"https://via.placeholder.com/80x120?text=Princesse"},
+{name:"Prince",rarity:2,img:"https://via.placeholder.com/80x120?text=Prince"},
+{name:"Reine",rarity:2,img:"https://via.placeholder.com/80x120?text=Reine"},
+{name:"Roi",rarity:2,img:"https://via.placeholder.com/80x120?text=Roi"},
+{name:"Pirate",rarity:2,img:"https://via.placeholder.com/80x120?text=Pirate"},
+{name:"Robot",rarity:2,img:"https://via.placeholder.com/80x120?text=Robot"},
+{name:"Alien",rarity:2,img:"https://via.placeholder.com/80x120?text=Alien"},
+{name:"Fantome",rarity:2,img:"https://via.placeholder.com/80x120?text=Fantome"},
+{name:"Zombie",rarity:2,img:"https://via.placeholder.com/80x120?text=Zombie"},
 
-  // Méga rares (3)
-  {name:'Chevalier Noir', img:'images/ChevalierNoir.png', rarity:3},
-  {name:'Sorciere Feu', img:'images/SorciereFeu.png', rarity:3},
-  {name:'Robot Laser', img:'images/RobotLaser.png', rarity:3},
+/* ===== 20 SUPER ===== */
+{name:"Dragon",rarity:3,img:"https://via.placeholder.com/80x120?text=Dragon"},
+{name:"Phoenix",rarity:3,img:"https://via.placeholder.com/80x120?text=Phoenix"},
+{name:"Griffon",rarity:3,img:"https://via.placeholder.com/80x120?text=Griffon"},
+{name:"Kraken",rarity:3,img:"https://via.placeholder.com/80x120?text=Kraken"},
+{name:"Titan",rarity:3,img:"https://via.placeholder.com/80x120?text=Titan"},
+{name:"Golem",rarity:3,img:"https://via.placeholder.com/80x120?text=Golem"},
+{name:"Cyclope",rarity:3,img:"https://via.placeholder.com/80x120?text=Cyclope"},
+{name:"Minotaure",rarity:3,img:"https://via.placeholder.com/80x120?text=Minotaure"},
 
-  // Ultra rares (2)
-  {name:'Alien Bleu', img:'images/AlienBleu.png', rarity:4},
-  {name:'Pirate Squelette', img:'images/PirateSquelette.png', rarity:4},
+/* ===== 10 ULTRA ===== */
+{name:"Ange",rarity:4,img:"https://via.placeholder.com/80x120?text=Ange"},
+{name:"Demon",rarity:4,img:"https://via.placeholder.com/80x120?text=Demon"},
+{name:"Galactique",rarity:4,img:"https://via.placeholder.com/80x120?text=Galactique"},
+{name:"Cosmique",rarity:4,img:"https://via.placeholder.com/80x120?text=Cosmique"},
 
-  // Secret (1)
-  {name:'Dragon Eclair', img:'images/DragonEclair.png', rarity:5}
+/* ===== 4 SECRET ===== */
+{name:"Big mario",rarity:5,img:"https://via.placeholder.com/80x120?text=Secret1"},
+{name:"Alpha_edo",rarity:5,img:"https://via.placeholder.com/80x120?text=Secret2"},
+{name:"Alpha_elou",rarity:5,img:"https://via.placeholder.com/80x120?text=Secret3"},
+{name:"Lolonagol",rarity:5,img:"https://via.placeholder.com/80x120?text=Secret4"},
+
+/* ===== GOLD ===== */
+{name:"Vous",rarity:6,img:"https://via.placeholder.com/80x120?text=GOLD"}
 ];
-
+  
+https://via.placeholder.com/200x200/FFFFFF/000000?text=Pack
 let collection=JSON.parse(localStorage.getItem('collection'))||{};
 let friendCode=localStorage.getItem('friendCode');
 if(!friendCode){friendCode=Math.random().toString(36).substring(2,8).toUpperCase();localStorage.setItem('friendCode',friendCode);} 
