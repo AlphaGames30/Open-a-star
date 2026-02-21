@@ -76,107 +76,51 @@ Code ami: <span id="friend-code-display"></span>
 
 <script>
 document.addEventListener('DOMContentLoaded',()=>{
-const characters = [
-/* ===== 80 COMMUNES ===== */
-{name:"Lutin",rarity:1,img:"https://via.placeholder.com/80x120?text=Lutin"},
-{name:"Chat",rarity:1,img:"https://via.placeholder.com/80x120?text=Chat"},
-{name:"Chien",rarity:1,img:"https://via.placeholder.com/80x120?text=Chien"},
-{name:"Grenouille",rarity:1,img:"https://via.placeholder.com/80x120?text=Grenouille"},
-{name:"Arbre",rarity:1,img:"https://via.placeholder.com/80x120?text=Arbre"},
-{name:"Lampe",rarity:1,img:"https://via.placeholder.com/80x120?text=Lampe"},
-{name:"Lit",rarity:1,img:"https://via.placeholder.com/80x120?text=Lit"},
-{name:"Aspirateur",rarity:1,img:"https://via.placeholder.com/80x120?text=Aspirateur"},
-{name:"Chaise",rarity:1,img:"https://via.placeholder.com/80x120?text=Chaise"},
-{name:"Table",rarity:1,img:"https://via.placeholder.com/80x120?text=Table"},
-{name:"Crayon",rarity:1,img:"https://via.placeholder.com/80x120?text=Crayon"},
-{name:"Stylo",rarity:1,img:"https://via.placeholder.com/80x120?text=Stylo"},
-{name:"Gomme",rarity:1,img:"https://via.placeholder.com/80x120?text=Gomme"},
-{name:"Sac",rarity:1,img:"https://via.placeholder.com/80x120?text=Sac"},
-{name:"Boite",rarity:1,img:"https://via.placeholder.com/80x120?text=Boite"},
-{name:"Coussin",rarity:1,img:"https://via.placeholder.com/80x120?text=Coussin"},
-{name:"Tapis",rarity:1,img:"https://via.placeholder.com/80x120?text=Tapis"},
-{name:"Rideau",rarity:1,img:"https://via.placeholder.com/80x120?text=Rideau"},
-{name:"Fenetre",rarity:1,img:"https://via.placeholder.com/80x120?text=Fenetre"},
-{name:"Porte",rarity:1,img:"https://via.placeholder.com/80x120?text=Porte"},
-{name:"Nuage",rarity:1,img:"https://via.placeholder.com/80x120?text=Nuage"},
-{name:"Pluie",rarity:1,img:"https://via.placeholder.com/80x120?text=Pluie"},
-{name:"Soleil",rarity:1,img:"https://via.placeholder.com/80x120?text=Soleil"},
-{name:"Lune",rarity:1,img:"https://via.placeholder.com/80x120?text=Lune"},
-{name:"Etoile",rarity:1,img:"https://via.placeholder.com/80x120?text=Etoile"},
-{name:"Pierre",rarity:1,img:"https://via.placeholder.com/80x120?text=Pierre"},
-{name:"Sable",rarity:1,img:"https://via.placeholder.com/80x120?text=Sable"},
-{name:"Feuille",rarity:1,img:"https://via.placeholder.com/80x120?text=Feuille"},
-{name:"Branche",rarity:1,img:"https://via.placeholder.com/80x120?text=Branche"},
-{name:"Racine",rarity:1,img:"https://via.placeholder.com/80x120?text=Racine"},
-{name:"Fourmi",rarity:1,img:"https://via.placeholder.com/80x120?text=Fourmi"},
-{name:"Abeille",rarity:1,img:"https://via.placeholder.com/80x120?text=Abeille"},
-{name:"Papillon",rarity:1,img:"https://via.placeholder.com/80x120?text=Papillon"},
-{name:"Mouche",rarity:1,img:"https://via.placeholder.com/80x120?text=Mouche"},
-{name:"Araignee",rarity:1,img:"https://via.placeholder.com/80x120?text=Araignee"},
-{name:"Ver",rarity:1,img:"https://via.placeholder.com/80x120?text=Ver"},
-{name:"Poisson",rarity:1,img:"https://via.placeholder.com/80x120?text=Poisson"},
-{name:"Crabe",rarity:1,img:"https://via.placeholder.com/80x120?text=Crabe"},
-{name:"Tortue",rarity:1,img:"https://via.placeholder.com/80x120?text=Tortue"},
-{name:"Escargot",rarity:1,img:"https://via.placeholder.com/80x120?text=Escargot"},
-{name:"Poulet",rarity:1,img:"https://via.placeholder.com/80x120?text=Poulet"},
-{name:"Vache",rarity:1,img:"https://via.placeholder.com/80x120?text=Vache"},
-{name:"Mouton",rarity:1,img:"https://via.placeholder.com/80x120?text=Mouton"},
-{name:"Cochon",rarity:1,img:"https://via.placeholder.com/80x120?text=Cochon"},
-{name:"Cheval",rarity:1,img:"https://via.placeholder.com/80x120?text=Cheval"},
-{name:"Ane",rarity:1,img:"https://via.placeholder.com/80x120?text=Ane"},
-{name:"Lapin",rarity:1,img:"https://via.placeholder.com/80x120?text=Lapin"},
-{name:"Hamster",rarity:1,img:"https://via.placeholder.com/80x120?text=Hamster"},
-{name:"Souris",rarity:1,img:"https://via.placeholder.com/80x120?text=Souris"},
-{name:"Rat",rarity:1,img:"https://via.placeholder.com/80x120?text=Rat"},
 
-/* ===== 45 RARES ===== */
-{name:"Licorne",rarity:2,img:"https://via.placeholder.com/80x120?text=Licorne"},
-{name:"Fee",rarity:2,img:"https://via.placeholder.com/80x120?text=Fee"},
-{name:"Dragonnet",rarity:2,img:"https://via.placeholder.com/80x120?text=Dragonnet"},
-{name:"Gnome",rarity:2,img:"https://via.placeholder.com/80x120?text=Gnome"},
-{name:"Elfe",rarity:2,img:"https://via.placeholder.com/80x120?text=Elfe"},
-{name:"Sorcier",rarity:2,img:"https://via.placeholder.com/80x120?text=Sorcier"},
-{name:"Mage",rarity:2,img:"https://via.placeholder.com/80x120?text=Mage"},
-{name:"Ninja",rarity:2,img:"https://via.placeholder.com/80x120?text=Ninja"},
-{name:"Samourai",rarity:2,img:"https://via.placeholder.com/80x120?text=Samourai"},
-{name:"Chevalier",rarity:2,img:"https://via.placeholder.com/80x120?text=Chevalier"},
-{name:"Princesse",rarity:2,img:"https://via.placeholder.com/80x120?text=Princesse"},
-{name:"Prince",rarity:2,img:"https://via.placeholder.com/80x120?text=Prince"},
-{name:"Reine",rarity:2,img:"https://via.placeholder.com/80x120?text=Reine"},
-{name:"Roi",rarity:2,img:"https://via.placeholder.com/80x120?text=Roi"},
-{name:"Pirate",rarity:2,img:"https://via.placeholder.com/80x120?text=Pirate"},
-{name:"Robot",rarity:2,img:"https://via.placeholder.com/80x120?text=Robot"},
-{name:"Alien",rarity:2,img:"https://via.placeholder.com/80x120?text=Alien"},
-{name:"Fantome",rarity:2,img:"https://via.placeholder.com/80x120?text=Fantome"},
-{name:"Zombie",rarity:2,img:"https://via.placeholder.com/80x120?text=Zombie"},
+const characters = (()=>{
 
-/* ===== 20 SUPER ===== */
-{name:"Dragon",rarity:3,img:"https://via.placeholder.com/80x120?text=Dragon"},
-{name:"Phoenix",rarity:3,img:"https://via.placeholder.com/80x120?text=Phoenix"},
-{name:"Griffon",rarity:3,img:"https://via.placeholder.com/80x120?text=Griffon"},
-{name:"Kraken",rarity:3,img:"https://via.placeholder.com/80x120?text=Kraken"},
-{name:"Titan",rarity:3,img:"https://via.placeholder.com/80x120?text=Titan"},
-{name:"Golem",rarity:3,img:"https://via.placeholder.com/80x120?text=Golem"},
-{name:"Cyclope",rarity:3,img:"https://via.placeholder.com/80x120?text=Cyclope"},
-{name:"Minotaure",rarity:3,img:"https://via.placeholder.com/80x120?text=Minotaure"},
-
-/* ===== 10 ULTRA ===== */
-{name:"Ange",rarity:4,img:"https://via.placeholder.com/80x120?text=Ange"},
-{name:"Demon",rarity:4,img:"https://via.placeholder.com/80x120?text=Demon"},
-{name:"Galactique",rarity:4,img:"https://via.placeholder.com/80x120?text=Galactique"},
-{name:"Cosmique",rarity:4,img:"https://via.placeholder.com/80x120?text=Cosmique"},
-
-/* ===== 4 SECRET ===== */
-{name:"Big mario",rarity:5,img:"https://via.placeholder.com/80x120?text=Secret1"},
-{name:"Alpha_edo",rarity:5,img:"https://via.placeholder.com/80x120?text=Secret2"},
-{name:"Alpha_elou",rarity:5,img:"https://via.placeholder.com/80x120?text=Secret3"},
-{name:"Lolonagol",rarity:5,img:"https://via.placeholder.com/80x120?text=Secret4"},
-
-/* ===== GOLD ===== */
-{name:"Vous",rarity:6,img:"https://via.placeholder.com/80x120?text=GOLD"}
+const commonNames = [
+"Lutin Vert","Princesse Douce","Aspirateur Fou","Lit Magique","Chien Joueur","Chat Noir","Grenouille Verte","Licorne Mini","Robot Jouet","Poulet Rigolo",
+"Blob Rose","Pierre Vivante","Gobelin Gentil","Rat Rapide","Champi Rouge","Boule Poil","Mini Dragon","Bébé Slime","Pingouin Cool","Cactus Punk",
+"Nuage Blanc","Ver Ninja","Poisson Cube","Tortue Zen","Bâton Rune","Bulle Magique","Chaussette Folle","Cube Sourire","Escargot Turbo","Lapin Marteau",
+"Poussin Pixel","Mouton Nuage","Gnome Barbu","Grenouille Beat","Robot Boite","Crabe Rouge","Mini Ogre","Biscuit Vivant","Dino Peluche","Plume Foudre",
+"Flamme Mini","Kraken Bébé","Mousse Verte","Chou Mutant","Souris Mage","Boule Neige","Peluche Mage","Lama Laser","Panda Zen","Pomme Bombe",
+"Brique Runique","Alien Bébé","Corbeau Rune","Renard Futé","Poire Pirate","Piment Flash","Canard Geek","Ours Mini","Miel Gluant","Cloche Rune",
+"Fleur Magique","Ombre Douce","Porte Vivante","Livre Magique","Clown Pixel","Cube Lave","Sablier Fou","Carotte Ninja","Corde Rune","Boule Disco",
+"Mini Requin","Tigre Peluche","Nuage Noir","Goutte Bleue","Foudre Mini","Lutin Pixel","Zombie Bébé","Boule Plasma","Bonbon Skull","Crabe Disco"
 ];
-  
-https://via.placeholder.com/200x200/FFFFFF/000000?text=Pack
+
+const rareNames = [
+"Sorcière Verte","Chevalier Bois","Dragon Rouge","Spectre Bleu","Mage Sable","Robot Lame","Alien Rune","Pirate Vapeur","Loup Argent","Phoenix Cendre",
+"Démon Sourire","Samouraï Pixel","Golem Roche","Hydre Jeune","Fantôme Lune","Oracle Brume","Chasseur Ombre","Ninja Brillant","Guerrier Rune","Sirène Onde",
+"Titan Petit","Berserker Bois","Faucon Rune","Paladin Jade","Serpent Glace","Djinn Mini","Valkyrie Rose","Roi Slime","Prince Ombre","Archer Étoile",
+"Clerc Sombre","Gladiateur Pixel","Moine Lave","Barde Rune","Voyant Ciel","Assassin Vapeur","Chimère Douce","Gardien Rune","Mage Plasma","Oracle Nuit",
+"Dragon Fleur","Reine Brume","Templier Argent","Esprit Jade","Seigneur Vent"
+];
+
+const superNames = [
+"Dragon Noir","Archimage","Titan Acier","Spectre Royal","Reine Araignée","Démon Lame","Phoenix Bleu","Hydre Royale","Golem Antique","Kraken Profond",
+"Samouraï Spectral","Ange Rune","Valkyrie Nuit","Liche Éternelle","Berserker Feu","Oracle Doré","Chevalier Spectre","Séraphin Rune","Empereur Slime","Gardien Galaxie"
+];
+
+const ultraNames = [
+"Dragon Cosmique","Dieu Slime","Titan Galactique","Ange Absolu","Démon Originel","Hydre Cosmique","Phantom Prime","Roi Astral","Kraken Stellaire","Oracle Ultime"
+];
+
+const secretNames = ["Entité Vide","Alpha Zero","Spectre Origin","Dragon Infini"];
+const goldNames = ["Dieu Créateur"];
+
+const list=[];
+commonNames.forEach(n=>list.push({name:n,img:`https://via.placeholder.com/80x120/FFFFFF/000000?text=${encodeURIComponent(n)}`,rarity:1}));
+rareNames.forEach(n=>list.push({name:n,img:`https://via.placeholder.com/80x120/FFFF00/000000?text=${encodeURIComponent(n)}`,rarity:2}));
+superNames.forEach(n=>list.push({name:n,img:`https://via.placeholder.com/80x120/FFA500/000000?text=${encodeURIComponent(n)}`,rarity:3}));
+ultraNames.forEach(n=>list.push({name:n,img:`https://via.placeholder.com/80x120/FF00FF/000000?text=${encodeURIComponent(n)}`,rarity:4}));
+secretNames.forEach(n=>list.push({name:n,img:`https://via.placeholder.com/80x120/FF0000/FFFFFF?text=${encodeURIComponent(n)}`,rarity:5}));
+goldNames.forEach(n=>list.push({name:n,img:`https://via.placeholder.com/80x120/FFD700/000000?text=${encodeURIComponent(n)}`,rarity:6}));
+
+return list;
+})();
+
 let collection=JSON.parse(localStorage.getItem('collection'))||{};
 let friendCode=localStorage.getItem('friendCode');
 if(!friendCode){friendCode=Math.random().toString(36).substring(2,8).toUpperCase();localStorage.setItem('friendCode',friendCode);} 
@@ -217,17 +161,30 @@ function updateIndex(){
 }
 
 function drawBooster(){
+  const now=Date.now();
+  let boosters=JSON.parse(localStorage.getItem('boosters'))||{count:3,last:now};
+  const diff=now-boosters.last;
+  if(diff>=43200000){
+    const add=Math.floor(diff/43200000);
+    boosters.count=Math.min(3,boosters.count+add);
+    boosters.last=now;
+  }
+  if(boosters.count<=0){alert('Plus de booster !');return;}
+  boosters.count--; localStorage.setItem('boosters',JSON.stringify(boosters));
+
   const boosterCards=[];
   for(let i=0;i<10;i++){
-    const r=Math.random();
-    let card;
-    if(r<0.6) card=characters.filter(c=>c.rarity===1)[Math.floor(Math.random()*18)];
-    else if(r<0.6+0.24) card=characters.filter(c=>c.rarity===2)[Math.floor(Math.random()*6)];
-    else if(r<0.6+0.24+0.12) card=characters.filter(c=>c.rarity===3)[Math.floor(Math.random()*3)];
-    else if(r<0.6+0.24+0.12+0.08) card=characters.filter(c=>c.rarity===4)[Math.floor(Math.random()*2)];
-    else card=characters.find(c=>c.rarity===5);
-    boosterCards.push(card);
+    const r=Math.random()*100;
+    let pool;
+    if(r<70) pool=characters.filter(c=>c.rarity===1);
+    else if(r<87) pool=characters.filter(c=>c.rarity===2);
+    else if(r<97) pool=characters.filter(c=>c.rarity===3);
+    else if(r<99) pool=characters.filter(c=>c.rarity===4);
+    else if(r<99.99) pool=characters.filter(c=>c.rarity===5);
+    else pool=characters.filter(c=>c.rarity===6);
+    boosterCards.push(pool[Math.floor(Math.random()*pool.length)]);
   }
+
   let current=0;
   const cardDisplay=document.getElementById('card-display');
   cardDisplay.innerHTML='';
@@ -237,13 +194,10 @@ function drawBooster(){
     const div=document.createElement('div');
     div.className='card-single';
     if(!collection[card.name]) div.classList.add('reveal');
-    div.innerHTML=`<img src='${card.img}' alt='${card.name}'>`;
+    div.innerHTML=`<div><img src='${card.img}'><p>${card.name}<br>Rareté: ${card.rarity}</p></div>`;
     div.addEventListener('click',()=>{
       collection[card.name]=(collection[card.name]||0)+1;
-      save();
-      updateIndex();
-      updateStats();
-      current++; cardDisplay.innerHTML=''; showNext();
+      save(); updateIndex(); updateStats(); current++; cardDisplay.innerHTML=''; showNext();
     });
     cardDisplay.appendChild(div);
   }
