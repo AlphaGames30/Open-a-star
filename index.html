@@ -43,6 +43,7 @@ img { width: 100%; height: 100%; object-fit: contain; }
 <h1>Unbox a Star</h1>
 
 <div id="home-section">
+  <div id="booster-timer" style="margin-top:10px;font-weight:bold;"></div>
   <div id="pack-container">
     <img id="pack-img" src="https://via.placeholder.com/200x200/FFFFFF/000000?text=Pack" alt="Pack">
   </div>
@@ -160,18 +161,85 @@ function updateIndex(){
   });
 }
 
-function drawBooster(){
+function getBoosters(){
   const now=Date.now();
   let boosters=JSON.parse(localStorage.getItem('boosters'))||{count:3,last:now};
+
   const diff=now-boosters.last;
   if(diff>=43200000){
     const add=Math.floor(diff/43200000);
     boosters.count=Math.min(3,boosters.count+add);
-    boosters.last=now;
+    boosters.last+=add*43200000;
+    localStorage.setItem('boosters',JSON.stringify(boosters));
   }
-  if(boosters.count<=0){alert('Plus de booster !');return;}
-  boosters.count--; localStorage.setItem('boosters',JSON.stringify(boosters));
+  return boosters;
+}
 
+function updateBoosterTimer(){
+  const boosters=getBoosters();
+  const timerDiv=document.getElementById('booster-timer');
+
+  if(boosters.count>=3){
+    timerDiv.innerText="Boosters pleins";
+    return;
+  }
+
+  const next=boosters.last+43200000;
+  const remain=next-Date.now();
+
+  const h=Math.floor(remain/3600000);
+  const m=Math.floor((remain%3600000)/60000);
+  const s=Math.floor((remain%60000)/1000);
+
+  timerDiv.innerText=`Prochain booster: ${h}h ${m}m ${s}s`;
+}
+
+setInterval(updateBoosterTimer,1000);
+
+function drawBooster(){
+  let boosters=getBoosters();
+  if(boosters.count<=0){alert("Plus de booster");return;}
+
+  boosters.count--;
+  localStorage.setItem('boosters',JSON.stringify(boosters));
+
+  const boosterCards=[];
+  for(let i=0;i<10;i++){
+    const r=Math.random()*100;
+    let pool;
+    if(r<70) pool=characters.filter(c=>c.rarity===1);
+    else if(r<87) pool=characters.filter(c=>c.rarity===2);
+    else if(r<97) pool=characters.filter(c=>c.rarity===3);
+    else if(r<99) pool=characters.filter(c=>c.rarity===4);
+    else if(r<99.99) pool=characters.filter(c=>c.rarity===5);
+    else pool=characters.filter(c=>c.rarity===6);
+    boosterCards.push(pool[Math.floor(Math.random()*pool.length)]);
+  }
+
+  let current=0;
+  const cardDisplay=document.getElementById('card-display');
+  cardDisplay.innerHTML='';
+
+  function showNext(){
+    if(current>=boosterCards.length){updateBoosterTimer();return;}
+    const card=boosterCards[current];
+    const div=document.createElement('div');
+    div.className='card-single';
+    if(!collection[card.name]) div.classList.add('reveal');
+
+    div.innerHTML=`<div><img src='${card.img}'><p>${card.name}<br>Rareté: ${card.rarity}</p></div>`;
+
+    div.onclick=()=>{
+      collection[card.name]=(collection[card.name]||0)+1;
+      save(); updateIndex(); updateStats();
+      current++; cardDisplay.innerHTML=''; showNext();
+    };
+
+    cardDisplay.appendChild(div);
+  }
+
+  showNext();
+}
   const boosterCards=[];
   for(let i=0;i<10;i++){
     const r=Math.random()*100;
